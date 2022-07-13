@@ -55,4 +55,12 @@ class NumberSquarePair {
     public double getSquare() {
         return square;
     }
+
+    @Override
+    public String toString() {
+        return "NumberSquarePair{" +
+                "number=" + number +
+                ", square=" + square +
+                '}';
+    }
 }
