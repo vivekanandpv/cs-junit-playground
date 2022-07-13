@@ -1,32 +1,58 @@
 package com.example.junitplayground.services;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MathUtilsShould {
+@DisplayName("MathUtils should")
+class MathUtilsTest {
 
-    @Test
-    void computeSquareOfANumber() {
+    @DisplayName("compute the square of any number")
+    @ParameterizedTest
+    @MethodSource("pairStreamProvider")
+    void computeSquareOfANumber(NumberSquarePair pair) {
         //  AAA: Arrange, Act, Assert
         //  Arrange
         MathUtils utils = new MathUtils();
 
         //  Act
-        double square = utils.square(9);
+        double square = utils.square(pair.getNumber());
 
         //  Assert
-        assertEquals(81.0, square);
+        assertEquals(pair.getSquare(), square);
     }
 
-    @Test
-    void computeSquareOfANegativeNumber() {
-        MathUtils utils = new MathUtils();
+    static List<NumberSquarePair> pairStreamProvider() {
+        return List.of(
+                new NumberSquarePair(9, 81),
+                new NumberSquarePair(-9, 81),
+                new NumberSquarePair(4, 16),
+                new NumberSquarePair(0, 0)
+        );
+    }
+}
 
-        //  Act
-        double square = utils.square(-9);
+class NumberSquarePair {
+    private double number;
+    private double square;
 
-        //  Assert
-        assertEquals(81.0, square);
+    public NumberSquarePair(double number, double square) {
+        this.number = number;
+        this.square = square;
+    }
+
+    public double getNumber() {
+        return number;
+    }
+
+    public double getSquare() {
+        return square;
     }
 }
