@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("MathUtils should")
 class MathUtilsTest {
+    private MathUtils mathUtils;
 
     @BeforeAll
     static void setUpTheSuite() {
@@ -26,7 +27,7 @@ class MathUtilsTest {
 
     @BeforeEach
     void beforeEach() {
-        System.out.println("BeforeEach");
+        mathUtils = new MathUtils();
     }
 
     @AfterEach
@@ -38,14 +39,7 @@ class MathUtilsTest {
     @ParameterizedTest
     @MethodSource("pairStreamProvider")
     void computeSquareOfANumber(NumberSquarePair pair) {
-
-        System.out.println("computeSquareOfANumber >> " + pair);
-        //  AAA: Arrange, Act, Assert
-        //  Arrange
-        MathUtils utils = new MathUtils();
-
-        //  Act
-        double square = utils.square(pair.getNumber());
+        double square = mathUtils.square(pair.getNumber());
 
         //  Assert
         assertEquals(pair.getSquare(), square);
